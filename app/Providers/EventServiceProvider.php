@@ -18,6 +18,10 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        'Webklex\IMAP\Events\MessageNewEvent' => [
+            'App\Listeners\ProcessEmail',
+        ]
+
     ];
 
     /**
