@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Email;
 use Illuminate\Http\Request;
 use Webklex\PHPIMAP\ClientManager;
 
@@ -27,9 +28,10 @@ class EmailController extends Controller
             $messages = $folder->messages()->all()->get();
         }
 
+        foreach ($messages as $message){
+            $email = Email::create(['from' => $message->from, 'subject' => $message->subject, 'body' => $message->getTextBody(), 'processed' => false]);
+        }
+
         return view('email.index', compact('messages'));
     }
-
-
-
 }
