@@ -29,14 +29,9 @@ class ProcessEmail
      */
     public function handle(NewEmailToProcessEvent $events)
     {
-
-        // dit werkt nu!
-        foreach ($events->message as $event){
-            //dd($event);
-            Email::create(['from' => $event->from, 'subject' => $event->subject, 'body' => $event->getTextBody(), 'processed' => false]);
-            $event->move($folder_path = "TCR");
+        foreach ($events->message as $email){
+            Email::create(['from' => $email->from, 'subject' => $email->subject, 'body' => $email->getTextBody(), 'message_id' => $email->message_id, 'processed' => false]);
+            $email->move($folder_path = "TCR");
         }
-
-
     }
 }

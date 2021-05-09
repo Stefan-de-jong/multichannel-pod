@@ -18,6 +18,7 @@ class Email extends Model
         'from',
         'subject',
         'body',
+        'message_id',
         'processed',
     ];
 

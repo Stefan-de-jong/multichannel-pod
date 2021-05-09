@@ -45,51 +45,34 @@ class FetchEmails extends Command
         try {
             $client->connect();
         } catch (ConnectionFailedException $e) {
-            dd('niet connected');
             Log::error($e->getMessage());
             return 1;
         }
-        //dd('connected');
 
         /** @var Folder $folder */
         try {
             $folder = $client->getFolder("INBOX");
-            //dd($folder);
         } catch (ConnectionFailedException $e) {
-            dd('conn failed excep');
             Log::error($e->getMessage());
             return 1;
         } catch (FolderFetchingException $e) {
-            dd('folder fetch excep');
             Log::error($e->getMessage());
             return 1;
         }
 
         try {
-            //$folder->idle(function($message){
             $messages = $folder->messages()->all()->get();
-            //dd($messages);
             foreach ($messages as $message){
-                echo $message->getSubject();
-                echo $message->getFrom();
-                echo $message->getTextBody();
-
-                echo 'message event sent';
-
-                //$message->move('CTR');
+                //print_r($message->getAttributes());
+                $this->info('New message from ' . $message->getFrom() . ' with subject: ' . $message->getSubject());
+                //$this->info('New message with subject: ' . $message->getSubject() . ' and id: ' . $message->getMessage_id());
+                $this->newLine();
             }
             event(new NewEmailToProcessEvent($messages));
-//            foreach ($messages as $message){
-//                $message->move($folder_path = "TCR");
-//            }
-
-
         } catch (ConnectionFailedException $e) {
             Log::error($e->getMessage());
             return 1;
         }
-
-
 
         return 0;
     }
