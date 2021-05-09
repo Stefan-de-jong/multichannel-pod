@@ -27,6 +27,6 @@ class ProcessEmail
      */
     public function handle(MessageNewEvent $event)
     {
-        $email = Email::create(['from' => $event->message->from, 'subject' => $event->message->subject, 'body' => $event->message->getTextBody(), 'processed' => false]);
+        Email::create(['from' => $event->message->from, 'subject' => $event->message->subject, 'body' => $event->message->getTextBody(), 'processed' => false]);
     }
 }
