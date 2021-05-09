@@ -2,10 +2,12 @@
 
 namespace App\Listeners;
 
+use App\Events\NewEmailToProcessEvent;
 use App\Models\Email;
-use \Webklex\PHPIMAP\Events\MessageNewEvent;
+use \Webklex\IMAP\Events\MessageNewEvent;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
+use Webklex\PHPIMAP\Message;
 
 class ProcessEmail
 {
@@ -25,9 +27,16 @@ class ProcessEmail
      * @param  MessageNewEvent  $event
      * @return void
      */
-    public function handle(MessageNewEvent $event)
+    public function handle(NewEmailToProcessEvent $events)
     {
-        //dd('processing');
-        Email::create(['from' => $event->message->from, 'subject' => $event->message->subject, 'body' => $event->message->getTextBody(), 'processed' => false]);
+
+        // dit werkt nu!
+        foreach ($events->message as $event){
+            //dd($event);
+            Email::create(['from' => $event->from, 'subject' => $event->subject, 'body' => $event->getTextBody(), 'processed' => false]);
+            $event->move($folder_path = "TCR");
+        }
+
+
     }
 }

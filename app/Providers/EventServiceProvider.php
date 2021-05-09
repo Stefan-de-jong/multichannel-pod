@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Events\NewEmailToProcessEvent;
 use App\Listeners\ProcessEmail;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -25,6 +26,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         \Webklex\PHPIMAP\Events\MessageNewEvent::class => [
             ProcessEmail::class,
+        ],
+        NewEmailToProcessEvent::class => [
+          ProcessEmail::class,
         ],
     ];
 

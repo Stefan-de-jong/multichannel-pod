@@ -14,6 +14,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         \Webklex\IMAP\Commands\ImapIdleCommand::class,
+        \App\Console\Commands\FetchIdleCommand::class,
     ];
 
     /**
