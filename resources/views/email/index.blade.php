@@ -26,9 +26,9 @@
             <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
                 @foreach($messages as $message)
                     <div class="my-2">
-                        <p>Sender: {{ $message->getSender() }}</p>
+                        <p>Sender: {{ $message->getFrom() }}</p>
                         <p>Subject: {{ $message->getSubject() }}</p>
-                        <p>Contect: {{ $message->getTextBody() }}</p>
+                        <p>Content: {{ $message->getTextBody() }}</p>
                     </div>
                 @endforeach
             </div>

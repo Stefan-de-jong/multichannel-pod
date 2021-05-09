@@ -20,6 +20,12 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        MessageNewEvent::class => [
+            ProcessEmail::class,
+        ],
+        \Webklex\PHPIMAP\Events\MessageNewEvent::class => [
+            ProcessEmail::class,
+        ],
     ];
 
     /**
