@@ -31,6 +31,12 @@ class ProcessEmail
     {
         foreach ($events->message as $email){
             Email::create(['from' => $email->from, 'subject' => $email->subject, 'body' => $email->getTextBody(), 'message_id' => $email->message_id, 'processed' => false]);
+            if($email->hasAttachments()){
+                $attachments = $email->getAttachments();
+                foreach ($attachments as $attachment){
+                    $attachment->save($path = "./storage/app/images/", $filename = pathinfo($attachment->name, PATHINFO_FILENAME) . '_' . time() . '.' . $attachment->getExtension());
+                }
+            }
             $email->move($folder_path = "TCR");
         }
     }

@@ -33,5 +33,9 @@
                 @endforeach
             </div>
 
+{{--            <div>--}}
+{{--                <img src="{{asset('storage/george.jpeg')}}" alt="">--}}
+{{--            </div>--}}
+
     </body>
 </html>
