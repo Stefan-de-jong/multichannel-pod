@@ -2,10 +2,9 @@
 
 namespace App\Console\Commands;
 
-use App\Events\NewEmailToProcessEvent;
+use App\Services\EmailService;
 use Illuminate\Console\Command;
-use Webklex\IMAP\Facades\Client;
-use Webklex\IMAP\Events\MessageNewEvent;
+use Webklex\PHPIMAP\Exceptions\RuntimeException;
 
 class FetchEmails extends Command
 {
@@ -37,43 +36,15 @@ class FetchEmails extends Command
      * Execute the console command.
      *
      * @return int
+     * @throws RuntimeException
      */
-    public function handle()
+    public function handle() : int
     {
-        /** @var Client $client */
-        $client = Client::account("default");
-        try {
-            $client->connect();
-        } catch (ConnectionFailedException $e) {
-            Log::error($e->getMessage());
-            return 1;
+        if(EmailService::GetEmails() == 0){
+            $this->info('Command executed successfully');
+            return 0;
         }
-
-        /** @var Folder $folder */
-        try {
-            $folder = $client->getFolder("INBOX");
-        } catch (ConnectionFailedException $e) {
-            Log::error($e->getMessage());
-            return 1;
-        } catch (FolderFetchingException $e) {
-            Log::error($e->getMessage());
-            return 1;
-        }
-
-        try {
-            $messages = $folder->messages()->all()->get();
-            foreach ($messages as $message){
-                //print_r($message->getAttributes());
-                $this->info('New message from ' . $message->getFrom() . ' with subject: ' . $message->getSubject());
-                //$this->info('New message with subject: ' . $message->getSubject() . ' and id: ' . $message->getMessage_id());
-                $this->newLine();
-            }
-            event(new NewEmailToProcessEvent($messages));
-        } catch (ConnectionFailedException $e) {
-            Log::error($e->getMessage());
-            return 1;
-        }
-
-        return 0;
+        else $this->info('Command execution failed, check error log');
+        return 1;
     }
 }
