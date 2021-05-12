@@ -34,7 +34,6 @@ class ProcessEmails extends Command
     /**
      * Execute the console command.
      *
-     * @return int
      */
     public function handle()
     {
@@ -44,7 +43,5 @@ class ProcessEmails extends Command
             $email->processed = true;
             $email->save();
         }
-
-        return 0;
     }
 }
