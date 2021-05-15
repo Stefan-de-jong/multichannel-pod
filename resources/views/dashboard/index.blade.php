@@ -4,39 +4,39 @@
 
     <?php
 
-    use Webklex\PHPIMAP\ClientManager;use Webklex\PHPIMAP\Support\FolderCollection;
-    use Webklex\PHPIMAP\Client;use Webklex\PHPIMAP\Support\MessageCollection;
-
-    $cm = new ClientManager('../config/imap.php');
-
-    /** @var Client $client */
-    $client = $cm->account('hotmail');
-    xdebug_break();
-    //Connect to the IMAP Server, if not connected
-    $status = $client->isConnected();
-    if (!$status) {
-        $status = $client->connect();
-    }
-
-    //Get mails from RTC folder and RTC_DONE folder.
-    /** @var FolderCollection $folders */
-    $newFolder = $client->getFolderByName('RTC');
-    $processedFolder = $client->getFolderByName('RTC_DONE');
-
-    /** @var MessageCollection $newMessages */
-    $newMessages = [];
-    $processedMessages = [];
-
-
-    $newMessages = $newFolder->messages()->all()->get();
-    $processedMessages = $processedFolder->messages()->all()->get();
-
-    EmailService::getEmails();
-
-//            $arr = App\Http\Controllers\emailController::fetchEmail();
-//            $newMessages[] = $arr[0];
-//            $processedMessages[] = $arr[1];
-
+//    use Webklex\PHPIMAP\ClientManager;use Webklex\PHPIMAP\Support\FolderCollection;
+//    use Webklex\PHPIMAP\Client;use Webklex\PHPIMAP\Support\MessageCollection;
+//
+//    $cm = new ClientManager('../config/imap.php');
+//
+//    /** @var Client $client */
+//    $client = $cm->account('hotmail');
+//    xdebug_break();
+//    //Connect to the IMAP Server, if not connected
+//    $status = $client->isConnected();
+//    if (!$status) {
+//        $status = $client->connect();
+//    }
+//
+//    //Get mails from RTC folder and RTC_DONE folder.
+//    /** @var FolderCollection $folders */
+//    $newFolder = $client->getFolderByName('RTC');
+//    $processedFolder = $client->getFolderByName('RTC_DONE');
+//
+//    /** @var MessageCollection $newMessages */
+//    $newMessages = [];
+//    $processedMessages = [];
+//
+//
+//    $newMessages = $newFolder->messages()->all()->get();
+//    $processedMessages = $processedFolder->messages()->all()->get();
+//
+//    EmailService::getEmails();
+//
+////            $arr = App\Http\Controllers\emailController::fetchEmail();
+////            $newMessages[] = $arr[0];
+////            $processedMessages[] = $arr[1];
+xdebug_break();
     ?>
 
     <div class="mx-auto w-full">
@@ -195,14 +195,15 @@
                                             </div>
                                             <div class="mx-2">
                                                 <div
-                                                    class="text-sm leading-5 font-medium text-gray-900"> {{$newMessage->getSubject()}}</div>
+                                                    class="text-sm leading-5 font-medium text-gray-900"> {{$newMessage->subject}}</div>
                                                 <div
-                                                    class="text-sm leading-5 text-gray-500">{{$newMessage->getFrom()}}</div>
+                                                    class="text-sm leading-5 text-gray-500">{{$newMessage->from}}</div>
                                             </div>
                                         </div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                        {{$newMessage->getAttachments()->count()}}
+                                        <!-- //$newMessage->getAttachments()->count()-->
+                                        {{4}}
                                     </td>
                                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                   <span
@@ -274,14 +275,15 @@
                                             </div>
                                             <div class="mx-2">
                                                 <div
-                                                    class="text-sm leading-5 font-medium text-gray-900">{{$processedMessage->getSubject()}}</div>
+                                                    class="text-sm leading-5 font-medium text-gray-900">{{$processedMessage->subject}}</div>
                                                 <div
-                                                    class="text-sm leading-5 text-gray-500">{{$processedMessage->getFrom()}}</div>
+                                                    class="text-sm leading-5 text-gray-500">{{$processedMessage->from}}</div>
                                             </div>
                                         </div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                        {{$processedMessage->getAttachments()->count()}}
+                                        <!--$processedMessage->getAttachments()->count() -->
+                                        {{4}}
                                     </td>
                                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                   <span
@@ -304,6 +306,4 @@
             </div>
         </div>
     </div>
-
-    <?php $client->disconnect(); ?>
 @endsection

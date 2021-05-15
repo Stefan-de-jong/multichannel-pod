@@ -3,6 +3,7 @@
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,9 +16,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('dashboard');
-});
+//Route::get('/', function () {
+//    return view('dashboard');
+//});
+
+Route::get('/', [DashboardController::class, 'index']);
 
 Route::get('email', [EmailController::class, 'index']);
 Auth::routes();
