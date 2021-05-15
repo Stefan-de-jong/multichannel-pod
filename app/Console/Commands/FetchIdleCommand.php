@@ -7,7 +7,12 @@ use Illuminate\Support\Facades\Log;
 use Webklex\IMAP\Events\MessageNewEvent;
 use Webklex\PHPIMAP\Client;
 use Webklex\PHPIMAP\Exceptions\ConnectionFailedException;
+use Webklex\PHPIMAP\Exceptions\EventNotFoundException;
 use Webklex\PHPIMAP\Exceptions\FolderFetchingException;
+use Webklex\PHPIMAP\Exceptions\InvalidMessageDateException;
+use Webklex\PHPIMAP\Exceptions\MessageContentFetchingException;
+use Webklex\PHPIMAP\Exceptions\MessageHeaderFetchingException;
+use Webklex\PHPIMAP\Exceptions\RuntimeException;
 use Webklex\PHPIMAP\Folder;
 use Webklex\PHPIMAP\Message;
 
@@ -40,11 +45,11 @@ class FetchIdleCommand extends Command {
      * Execute the console command.
      *
      * @return int
-     * @throws \Webklex\PHPIMAP\Exceptions\EventNotFoundException
-     * @throws \Webklex\PHPIMAP\Exceptions\InvalidMessageDateException
-     * @throws \Webklex\PHPIMAP\Exceptions\MessageContentFetchingException
-     * @throws \Webklex\PHPIMAP\Exceptions\MessageHeaderFetchingException
-     * @throws \Webklex\PHPIMAP\Exceptions\RuntimeException
+     * @throws EventNotFoundException
+     * @throws InvalidMessageDateException
+     * @throws MessageContentFetchingException
+     * @throws MessageHeaderFetchingException
+     * @throws RuntimeException
      */
     public function handle() {
         /** @var Client $client */

@@ -41,7 +41,7 @@ class FetchEmails extends Command
     public function handle()
     {
         /** @var Client $client */
-        $client = Client::account("default");
+        $client = Client::account("hotmail");
         try {
             $client->connect();
         } catch (ConnectionFailedException $e) {
@@ -51,7 +51,7 @@ class FetchEmails extends Command
 
         /** @var Folder $folder */
         try {
-            $folder = $client->getFolder("INBOX");
+            $folder = $client->getFolder("Inbox");
         } catch (ConnectionFailedException $e) {
             Log::error($e->getMessage());
             return 1;

@@ -10,6 +10,20 @@
 *  -
 */
 
+use Webklex\IMAP\Events\FlagDeletedEvent;
+use Webklex\IMAP\Events\FlagNewEvent;
+use Webklex\IMAP\Events\FolderDeletedEvent;
+use Webklex\IMAP\Events\FolderMovedEvent;
+use Webklex\IMAP\Events\FolderNewEvent;
+use Webklex\IMAP\Events\MessageCopiedEvent;
+use Webklex\IMAP\Events\MessageDeletedEvent;
+use Webklex\IMAP\Events\MessageMovedEvent;
+use Webklex\IMAP\Events\MessageNewEvent;
+use Webklex\IMAP\Events\MessageRestoredEvent;
+use Webklex\PHPIMAP\IMAP;
+use Webklex\PHPIMAP\Support\Masks\AttachmentMask;
+use Webklex\PHPIMAP\Support\Masks\MessageMask;
+
 return [
 
     /*
@@ -47,13 +61,13 @@ return [
     'accounts' => [
 
         'default' => [// account identifier
-            'host'  => env('IMAP_HOST', 'localhost'),
+            'host'  => env('IMAP_HOST', 'imap-mail.outlook.com'),
             'port'  => env('IMAP_PORT', 993),
             'protocol'  => env('IMAP_PROTOCOL', 'imap'), //might also use imap, [pop3 or nntp (untested)]
             'encryption'    => env('IMAP_ENCRYPTION', 'ssl'), // Supported: false, 'ssl', 'tls', 'notls', 'starttls'
             'validate_cert' => env('IMAP_VALIDATE_CERT', true),
-            'username' => env('IMAP_USERNAME', 'root@example.com'),
-            'password' => env('IMAP_PASSWORD', ''),
+            'username' => env('WEBKLEX_HOTMAIL_USERNAME', 'root@example.com'),
+            'password' => env('WEBKLEX_HOTMAIL_PASSWORD', ''),
             'authentication' => env('IMAP_AUTHENTICATION', null),
             'proxy' => [
                 'socket' => null,
@@ -62,28 +76,23 @@ return [
                 'password' => null,
             ]
         ],
-
-        /*
         'gmail' => [ // account identifier
             'host' => 'imap.gmail.com',
             'port' => 993,
             'encryption' => 'ssl',
-            'validate_cert' => true,
-            'username' => 'example@gmail.com',
-            'password' => 'PASSWORD',
-            'authentication' => 'oauth',
+            'validate_cert' => false,
+            'username' => env('WEBKLEX_GMAIL_USERNAME', ''),
+            'password' => env('WEBKLEX_GMAIL_PASSWORD', ''),
         ],
 
-        'another' => [ // account identifier
-            'host' => '',
+        'hotmail' => [ // account identifier
+            'host' => 'imap-mail.outlook.com',
             'port' => 993,
-            'encryption' => false,
+            'encryption' => 'ssl',
             'validate_cert' => true,
-            'username' => '',
-            'password' => '',
-            'authentication' => null,
-        ]
-        */
+            'username' => env('WEBKLEX_HOTMAIL_USERNAME'),
+            'password' => env('WEBKLEX_HOTMAIL_PASSWORD'),
+        ],
     ],
 
     /*
@@ -131,8 +140,8 @@ return [
     */
     'options' => [
         'delimiter' => '/',
-        'fetch' => \Webklex\PHPIMAP\IMAP::FT_PEEK,
-        'sequence' => \Webklex\PHPIMAP\IMAP::ST_UID,
+        'fetch' => IMAP::FT_PEEK,
+        'sequence' => IMAP::ST_UID,
         'fetch_body' => true,
         'fetch_flags' => true,
         'message_key' => 'list',
@@ -162,20 +171,20 @@ return [
     */
     'events' => [
         "message" => [
-            'new' => \Webklex\IMAP\Events\MessageNewEvent::class,
-            'moved' => \Webklex\IMAP\Events\MessageMovedEvent::class,
-            'copied' => \Webklex\IMAP\Events\MessageCopiedEvent::class,
-            'deleted' => \Webklex\IMAP\Events\MessageDeletedEvent::class,
-            'restored' => \Webklex\IMAP\Events\MessageRestoredEvent::class,
+            'new' => MessageNewEvent::class,
+            'moved' => MessageMovedEvent::class,
+            'copied' => MessageCopiedEvent::class,
+            'deleted' => MessageDeletedEvent::class,
+            'restored' => MessageRestoredEvent::class,
         ],
         "folder" => [
-            'new' => \Webklex\IMAP\Events\FolderNewEvent::class,
-            'moved' => \Webklex\IMAP\Events\FolderMovedEvent::class,
-            'deleted' => \Webklex\IMAP\Events\FolderDeletedEvent::class,
+            'new' => FolderNewEvent::class,
+            'moved' => FolderMovedEvent::class,
+            'deleted' => FolderDeletedEvent::class,
         ],
         "flag" => [
-            'new' => \Webklex\IMAP\Events\FlagNewEvent::class,
-            'deleted' => \Webklex\IMAP\Events\FlagDeletedEvent::class,
+            'new' => FlagNewEvent::class,
+            'deleted' => FlagDeletedEvent::class,
         ],
     ],
 
@@ -193,7 +202,7 @@ return [
     | The provided masks below are used as the default masks.
     */
     'masks' => [
-        'message' => \Webklex\PHPIMAP\Support\Masks\MessageMask::class,
-        'attachment' => \Webklex\PHPIMAP\Support\Masks\AttachmentMask::class
+        'message' => MessageMask::class,
+        'attachment' => AttachmentMask::class
     ]
 ];

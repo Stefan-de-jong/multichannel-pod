@@ -2,8 +2,10 @@
 
 namespace App\Console;
 
+use App\Console\Commands\FetchIdleCommand;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Webklex\IMAP\Commands\ImapIdleCommand;
 
 class Kernel extends ConsoleKernel
 {
@@ -13,14 +15,14 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        \Webklex\IMAP\Commands\ImapIdleCommand::class,
-        \App\Console\Commands\FetchIdleCommand::class,
+        ImapIdleCommand::class,
+        FetchIdleCommand::class,
     ];
 
     /**
      * Define the application's command schedule.
      *
-     * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
+     * @param Schedule $schedule
      * @return void
      */
     protected function schedule(Schedule $schedule)

@@ -1,16 +1,14 @@
 module.exports = {
-  purge: [
-    './storage/framework/views/*.php',
-    './resources/**/*.blade.php',
-    './resources/**/*.js',
-    './resources/**/*.vue',
-  ],
-  darkMode: false, // or 'media' or 'class'
-  theme: {
-    extend: {},
-  },
-  variants: {
-    extend: {},
-  },
-  plugins: [],
-}
+    purge: [],
+    theme: {
+        fontFamily: {
+            'base': 'Inter',
+            // 'base-ar': 'Tajawal' // I love this font for arabic
+        },
+        extend: {},
+    },
+    variants: {},
+    plugins: [
+        require('@tailwindcss/custom-forms'),
+    ],
+};

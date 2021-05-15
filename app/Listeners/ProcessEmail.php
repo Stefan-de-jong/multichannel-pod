@@ -4,7 +4,7 @@ namespace App\Listeners;
 
 use App\Events\NewEmailToProcessEvent;
 use App\Models\Email;
-use \Webklex\IMAP\Events\MessageNewEvent;
+use Webklex\IMAP\Events\MessageNewEvent;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Webklex\PHPIMAP\Message;
@@ -39,7 +39,7 @@ class ProcessEmail
             }
             $email->move($folder_path = "TCR");
 
-            
+
         }
     }
 }
