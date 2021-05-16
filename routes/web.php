@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\EmailController;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PagesController;
+use App\Http\Controllers\UsersDashboardController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 
@@ -16,16 +17,16 @@ use App\Http\Controllers\DashboardController;
 |
 */
 
-//Route::get('/', function () {
-//    return view('dashboard');
-//});
+//Enabled verification by passing in ['verify' => true] as a param
+Auth::routes(['verify' => true]);
 
-Route::get('/', [DashboardController::class, 'index']);
+Route::get('/', [PagesController::class, 'index']);
 
-Route::get('email', [EmailController::class, 'index']);
-Auth::routes();
+Route::get('/users', [UsersDashboardController::class, 'index']);
+Route::get('/users/{id}/edit', [UsersDashboardController::class, 'edit']);
+Route::match(['put', 'patch'], '/users/{id}/update', [UsersDashboardController::class, 'update']);
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('email', [\App\Http\Controllers\EmailController::class, 'index']);
 
-Route::view('/ui', 'ui.index');
+
 
