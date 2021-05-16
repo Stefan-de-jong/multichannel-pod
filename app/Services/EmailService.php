@@ -21,7 +21,7 @@ class EmailService
     public static function GetEmails() : int
     {
         // Connecting to the email client
-        $client = Client::account("default");
+        $client = Client::account("hotmail");
         try {
             $client->connect();
         } catch (ConnectionFailedException $e) {
@@ -31,7 +31,7 @@ class EmailService
 
         // Getting the inbox folder
         try {
-            $folder = $client->getFolder("INBOX");
+            $folder = $client->getFolder("Inbox");
         } catch (ConnectionFailedException $e) {
             Log::error($e->getMessage());
             return 1;

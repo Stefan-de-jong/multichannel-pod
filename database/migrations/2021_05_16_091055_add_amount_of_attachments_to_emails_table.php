@@ -14,7 +14,7 @@ class AddAmountOfAttachmentsToEmailsTable extends Migration
     public function up()
     {
         Schema::table('emails', function (Blueprint $table) {
-            $table->integer('attachment_count')->after('message_id');
+            $table->integer('attachment_count')->default(0)->after('message_id');
         });
     }
 

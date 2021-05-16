@@ -21,6 +21,7 @@ use App\Http\Controllers\DashboardController;
 Auth::routes(['verify' => true]);
 
 Route::get('/', [PagesController::class, 'index']);
+Route::get('/dashboard', [DashboardController::class, 'index']);
 
 Route::get('/users', [UsersDashboardController::class, 'index']);
 Route::get('/users/{id}/edit', [UsersDashboardController::class, 'edit']);

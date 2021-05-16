@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Email;
 use Illuminate\Support\Facades\DB;
-use Webklex\PHPIMAP\Support\MessageCollection;
 
 class DashboardController extends Controller
 {
@@ -18,13 +17,10 @@ class DashboardController extends Controller
 
     }
     public function index(){
+        $newMessages = DB::table('emails')->select('from','subject', 'attachment_count')->where('processed',0)->get();
 
-        /** @var MessageCollection $newMessages */
-        $newMessages = DB::table('emails')->select('from','subject')->where('processed',0)->get();
+        $processedMessages = DB::table('emails')->select('from','subject', 'attachment_count')->where('processed', 1)->get();
 
-        /** @var MessageCollection $processedMessages */
-        $processedMessages = DB::table('emails')->select('from','subject')->where('processed', 1)->get();
-xdebug_break();
         return view('dashboard.index', compact('newMessages','processedMessages'));
     }
 }

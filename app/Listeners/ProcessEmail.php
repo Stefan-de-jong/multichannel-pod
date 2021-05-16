@@ -30,13 +30,18 @@ class ProcessEmail
     public function handle(NewEmailToProcessEvent $events)
     {
         foreach ($events->message as $email){
-            Email::create(['from' => $email->from, 'subject' => $email->subject, 'body' => $email->getTextBody(), 'message_id' => $email->message_id, 'processed' => false]);
             if($email->hasAttachments()){
                 $attachments = $email->getAttachments();
+                Email::create(['from' => $email->from, 'subject' => $email->subject, 'body' => $email->getTextBody(), 'message_id' => $email->message_id, 'attachment_count' => $attachments->count(), 'processed' => false]);
+
                 foreach ($attachments as $attachment){
                     $attachment->save($path = "./storage/app/images/", $filename = pathinfo($attachment->name, PATHINFO_FILENAME) . '_' . time() . '.' . $attachment->getExtension());
                 }
             }
+            else{
+                Email::create(['from' => $email->from, 'subject' => $email->subject, 'body' => $email->getTextBody(), 'message_id' => $email->message_id, 'processed' => false]);
+            }
+
             $email->move($folder_path = "TCR");
 
 

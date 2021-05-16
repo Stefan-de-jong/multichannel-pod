@@ -20,6 +20,7 @@ class Email extends Model
         'body',
         'message_id',
         'processed',
+        'attachment_count',
     ];
 
     /**

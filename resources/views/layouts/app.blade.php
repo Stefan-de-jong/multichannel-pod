@@ -1,137 +1,56 @@
-<!doctype html>
-<html 
-    lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    <meta 
-    charset="utf-8"
-    />
-    <meta 
-        name="viewport" 
-        content="width=device-width, initial-scale=1"
-    />
-    <meta 
-        name="csrf-token"
-        content="{{ csrf_token() }}"
-    />
-    <title>
-        {{ config('app.name', 'Laravel') }}</title>
-    <script 
-        src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" 
-        defer>
-    </script>
-    <script 
-        src="{{ asset('js/app.js') }}" 
-        defer>
-    </script>
-    <link 
-        href="{{ mix('css/app.css') }}" 
-        rel="stylesheet"
-    />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>Laravel</title>
+
+    <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+    <script type="module" src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"></script>
+    <script nomodule src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine-ie11.min.js" defer></script>
+
+    <script src="{{ mix('js/app.js') }}" defer></script>
 </head>
+<body class="bg-gray-200 min-h-screen font-base">
+<div id="app">
 
-<body class="bg-gray-100 h-screen antialiased leading-none font-sans">
-    <header 
-        x-data="{ mobileMenuOpen : false }" 
-        class="flex flex-wrap flex-row justify-between md:items-center shadow-xl md:space-x-4 w-4/5bg-white py-6 px-6 relative">
-        
-        <a href="/" class="block">
-          <img 
-            class="h-6 md:h-8" 
-            src="https://tcrotterdam.nl/wp-content/uploads/2015/09/logo-kleur.png" 
-            alt="Logo Transportcentrale Rotterdam" 
-            title="Logo Transportcentrale Rotterdam">
-        </a>
+    <div class="flex flex-col md:flex-row">
 
-        <button 
-            @click="mobileMenuOpen = !mobileMenuOpen" 
-            class="inline-block md:hidden w-8 h-8 bg-gray-200 text-gray-600 p-1">
-          
-            <svg 
-                fill="currentColor" 
-                viewBox="0 0 20 20" 
-                xmlns="http://www.w3.org/2000/svg">
-                <path 
-                    fill-rule="evenodd" 
-                    d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" 
-                    clip-rule="evenodd">
-                </path>
-            </svg>
-        </button>
+        @include('includes.sidebar')
 
-        <nav 
-            class="absolute md:relative top-16 left-0 md:top-0 z-20 md:flex flex-col md:flex-row md:space-x-6 font-semibold w-full md:w-auto bg-white shadow-md rounded-lg md:rounded-none md:shadow-none md:bg-transparent p-6 pt-0 md:p-0"
-            :class="{ 'flex' : mobileMenuOpen , 'hidden' : !mobileMenuOpen}"  
-            @click.away="mobileMenuOpen = false"
-        >
-            <a 
-                href="#" 
-                class="block py-1 text-orange-500 hover:underline">
-                Home
-            </a>
-
-            <a 
-                href="#" 
-                class="block py-1 text-gray-600 hover:underline">
-                About us
-            </a>
-
-            <a 
-                href="/users" 
-                class="block py-1 text-gray-600 hover:underline">
-                Users
-            </a>
-
-            <a 
-                href="#" 
-                class="block py-1 text-gray-600 hover:underline">
-                Blog
-            </a>
-
-            <a 
-                href="#" 
-                class="block py-1 text-gray-600 hover:underline">
-            
-                @guest
-                    <a 
-                        class="block py-1 text-gray-600 hover:underline" 
-                        href="
-                        {{ route('login') }}">{{ __('Login') }}
-                    </a>
-                
-                    @if (Route::has('register'))
-                        <a 
-                            class="block py-1 text-gray-600 hover:underline" 
-                            href="{{ route('register') }}">{{ __('Register') }}
-                        </a>
-                    @endif
-                    
-                    @else
-                        <span>
-                            {{ Auth::user()->name }}
-                        </span>
-
-                        <a 
-                            href="{{ route('logout') }}"
-                            class="block py-1 text-gray-600 hover:underline"
-                            onclick="event.preventDefault();
-                            document.getElementById('logout-form').submit();">{{ __('Logout') }}
-                        </a>
-
-                        <form 
-                            id="logout-form" 
-                            action="{{ route('logout') }}" 
-                            method="POST" 
-                            class="hidden">
-                            {{ csrf_field() }}
-                        </form>
-                @endguest
-            </a>
-        </nav>
-    </header>
-
-    <div>
-        @yield('content')
+        <div class="w-full md:flex-1">
+            <nav class="hidden md:flex justify-between items-center bg-white p-4 shadow-md h-16">
+                <div>
+                    <input class="px-4 py-2 bg-gray-200 border border-gray-300 rounded focus:outline-none" type="text"
+                           placeholder="Search.."/>
+                </div>
+                <div>
+                    <button class="mx-2 text-gray-700 focus:outline-none"
+                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        <svg class="h-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                             viewBox="0 0 24 24" stroke="currentColor">
+                            <path
+                                d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
+                        </svg>
+                    </button>
+                </div>
+            </nav>
+            <main>
+                <!-- Replace with your content -->
+                <div class="px-8 py-6">
+                    @yield('content')
+                </div>
+                <!-- /End replace -->
+            </main>
+        </div>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            {{ csrf_field() }}
+        </form>
     </div>
-    
+</div>
 </body>
 </html>
