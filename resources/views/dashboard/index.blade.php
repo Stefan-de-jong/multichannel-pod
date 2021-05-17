@@ -3,11 +3,11 @@
 @section('content')
 
     <?php
-        //xdebug_break();
-    //    use Webklex\PHPIMAP\ClientManager;use Webklex\PHPIMAP\Support\FolderCollection;
-    //    use Webklex\PHPIMAP\Client;use Webklex\PHPIMAP\Support\MessageCollection;
+    //xdebug_break();
+    //        use Webklex\PHPIMAP\ClientManager;use Webklex\PHPIMAP\Support\FolderCollection;
+    //        use Webklex\PHPIMAP\Client;use Webklex\PHPIMAP\Support\MessageCollection;
     //
-    //    $cm = new ClientManager('../config/imap.php');
+    //        $cm = new ClientManager('../config/imap.php');
     //
     //    /** @var Client $client */
     //    $client = $cm->account('hotmail');
@@ -170,19 +170,19 @@
                                 </th>
                                 <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
                                     style="text-align: end">
-                                    <input class="align-middle all_checked" id="selectAll" type="checkbox" oncllick="">
+                                    <input class="align-middle" id="selectAll" type="checkbox" onclick="" {{($newMessages->count() > 0) ? '' :'disabled=disabled'}}>
                                 </th>
                                 <th class="px-1 py-3 border-b border-gray-200 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
                                     style="text-align: start">
                                     <button
-                                        class="px-2 py-1 bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-medium rounded">
+                                        class="{{($newMessages->count() > 0) ? 'px-2 py-1 text-white text-sm font-medium rounded hover:bg-indigo-600 bg-indigo-500' : 'cursor-not-allowed bg-gray-500 px-2 py-1 text-white text-sm font-medium rounded'}}">
                                         Process
                                     </button>
                                 </th>
                             </tr>
                             </thead>
                             <tbody class="bg-white">
-                            @foreach($newMessages as $newMessage)
+                            @forelse($newMessages as $newMessage)
                                 <tr>
                                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                         <div class="flex items-center">
@@ -221,7 +221,45 @@
                                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 font-medium">
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                        <div class="flex items-center">
+                                            <div class="flex-shrink-0 h-10 w-10">
+                                                <svg class="h-10 w-10 rounded-full text-gray-500" fill="none"
+                                                     stroke-linecap="round"
+                                                     stroke-linejoin="round"
+                                                     stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path
+                                                        d="M8 4H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-2m-4-1v8m0 0l3-3m-3 3L9 8m-5 5h2.586a1 1 0 01.707.293l2.414 2.414a1 1 0 00.707.293h3.172a1 1 0 00.707-.293l2.414-2.414a1 1 0 01.707-.293H20"></path>
+                                                </svg>
+                                            </div>
+                                            <div class="mx-2">
+                                                <div
+                                                    class="text-sm leading-5 font-medium text-gray-900">{{NAN}}
+                                                </div>
+                                                <div
+                                                    class="text-sm leading-5 text-gray-500">{{NAN}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                        {{NAN}}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                  <span
+                                      class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                    No
+                                  </span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 font-medium"
+                                        style="text-align: end">
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 font-medium">
+                                    </td>
+                                </tr>
+                            @endforelse
                             </tbody>
                         </table>
                     </div>
