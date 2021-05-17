@@ -85,7 +85,7 @@
                                         Processed email failed
                                     </h5>
                                     <span class="font-semibold text-xl text-gray-800">
-                          13
+                          {{$processedEmailFailed->TotalAmount}}
                         </span>
                                 </div>
                                 <div class="relative w-auto px-2 flex-initial">
@@ -101,7 +101,7 @@
                             </div>
                             <p class="text-sm text-gray-500 mt-4">
                       <span class="text-orange-500 mr-2">
-                        <i class="fas fa-arrow-down"></i> 2
+                        <i class="fas fa-arrow-down"></i> {{$processedEmailFailed->WeeklyAmount}}
                       </span>
                                 <span class="whitespace-no-wrap">
                         Since last week

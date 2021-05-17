@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Email_Stats;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
-use \Illuminate\Support\Collection;
 use mysql_xdevapi\Exception;
 
 class DashboardController extends Controller
@@ -84,6 +84,14 @@ class DashboardController extends Controller
      */
     private function getFailedProcessedEmailStats(): Email_Stats
     {
+        // a weeks time
+        $start = Carbon::now()->subDays(7);
+        $end = Carbon::now();
 
+        $processedEmailFailed = new Email_Stats();
+        $processedEmailFailed->WeeklyAmount = DB::table('emails')->whereBetween('created_at', array($start, $end))->where('processed', 1)->where('failed', 1)->get()->count();
+        $processedEmailFailed->TotalAmount = DB::table('emails')->where('processed', 1)->where('failed',1)->get()->count();
+
+        return $processedEmailFailed;
     }
 }
