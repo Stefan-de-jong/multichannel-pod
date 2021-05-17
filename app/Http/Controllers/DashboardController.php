@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Email;
 use Illuminate\Support\Facades\DB;
+use mysql_xdevapi\Exception;
 
 class DashboardController extends Controller
 {
@@ -16,11 +16,21 @@ class DashboardController extends Controller
     {
 
     }
-    public function index(){
-        $newMessages = DB::table('emails')->select('from','subject', 'attachment_count')->where('processed',0)->get();
 
-        $processedMessages = DB::table('emails')->select('from','subject', 'attachment_count')->where('processed', 1)->get();
+    public function index()
+    {
+        // init
+        $newMessages = [];
+        $processedMessages = [];
 
-        return view('dashboard.index', compact('newMessages','processedMessages'));
+        ///todo fill it with a default response if nothing is found.
+        try {
+            $newMessages = DB::table('emails')->select('from', 'subject', 'attachment_count')->where('processed', 0)->get();
+            $processedMessages = DB::table('emails')->select('from', 'subject', 'attachment_count')->where('processed', 1)->get();
+        } catch (Exception $e) {
+
+        } finally {
+            return view('dashboard.index', compact('newMessages', 'processedMessages'));
+        }
     }
 }
