@@ -7,8 +7,8 @@
             <span class="text-gray-300 text-xl font-semibold mx-2">Dashboard</span>
         </a>
         <div class="flex md:hidden">
-            <button type="button" @click="isOpen = !isOpen"
-                    class="text-gray-300 hover:text-gray-500 focus:outline-none focus:text-gray-500">
+            <<button type="button" @click="isOpen = !isOpen"
+                     class="text-gray-300 hover:text-gray-500 focus:outline-none focus:text-gray-500">
                 <svg class="fill-current w-8" fill="none" stroke-linecap="round" stroke-linejoin="round"
                      stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                     <path d="M4 6h16M4 12h16M4 18h16"></path>
@@ -18,8 +18,9 @@
     </div>
     <div class="px-2 py-6 md:block" :class="isOpen? 'block': 'hidden'" >
         <ul>
-            <li class="px-2 py-3 bg-gray-900 rounded">
-                <a href="#" class="flex items-center">
+            <li class="{{ (request()->is('/')) ? 'px-2 py-3 bg-gray-900 rounded mt-2' :'' }} : px-2 py-3 hover:bg-gray-900 rounded mt-2">
+                <!--<li class="px-2 py-3 hover:bg-gray-900 rounded">-->
+                <a href="/" class="flex items-center">
                     <svg class="w-6 text-gray-500" fill="none" stroke-linecap="round"
                          stroke-linejoin="round"
                          stroke-width="2"
@@ -30,61 +31,16 @@
                     <span class="mx-2 text-gray-300">Dashboard</span>
                 </a>
             </li>
-            <li class="px-2 py-3 hover:bg-gray-900 rounded mt-2">
-                <a href="#" class="flex items-center">
+            <li class="{{ (request()->is('attachment')) ? 'px-2 py-3 bg-gray-900 rounded mt-2' :'' }} : px-2 py-3 hover:bg-gray-900 rounded mt-2">
+                <a href="attachment" class="flex items-center">
                     <svg class="w-6 text-gray-500" fill="none" stroke-linecap="round"
                          stroke-linejoin="round"
                          stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                         <path
-                            d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                            d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path>
                     </svg>
-                    <span class="mx-2 text-gray-300">Team</span>
+                    <span class="mx-2 text-gray-300">Attachments</span>
                 </a>
-            </li>
-            <li class="px-2 py-3 hover:bg-gray-900 rounded mt-2">
-                <a href="#" class="flex items-center">
-                    <svg class="w-6 text-gray-500" fill="none" stroke-linecap="round"
-                         stroke-linejoin="round"
-                         stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                        <path
-                            d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path>
-                    </svg>
-                    <span class="mx-2 text-gray-300">Projects</span>
-                </a>
-            </li>
-            <li class="px-2 py-3 hover:bg-gray-900 rounded mt-2">
-                <a href="#" class="flex items-center">
-                    <svg class="w-6 text-gray-500" fill="none" stroke-linecap="round"
-                         stroke-linejoin="round"
-                         stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                        <path
-                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                    </svg>
-                    <span class="mx-2 text-gray-300">Calendar</span>
-                </a>
-            </li>
-            <li class="px-2 py-3 hover:bg-gray-900 rounded mt-2">
-                <a href="#" class="flex items-center">
-                    <svg class="w-6 text-gray-500" fill="none" stroke-linecap="round"
-                         stroke-linejoin="round"
-                         stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                        <path
-                            d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path>
-                    </svg>
-                    <span class="mx-2 text-gray-300">Documents</span>
-                </a>
-            </li>
-            <li class="px-2 py-3 hover:bg-gray-900 rounded mt-2">
-                <a href="#" class="flex items-center">
-                    <svg class="w-6 text-gray-500" fill="none" stroke-linecap="round"
-                         stroke-linejoin="round"
-                         stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                        <path
-                            d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                    </svg>
-                    <span class="mx-2 text-gray-300">Reports</span>
-                </a>
-            </li>
         </ul>
         <div class="border-t border-gray-700 -mx-2 mt-2 md:hidden"></div>
         <ul class="mt-6 md:hidden">

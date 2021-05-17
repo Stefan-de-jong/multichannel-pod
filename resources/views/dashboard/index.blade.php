@@ -3,6 +3,7 @@
 @section('content')
 
     <?php
+        //xdebug_break();
     //    use Webklex\PHPIMAP\ClientManager;use Webklex\PHPIMAP\Support\FolderCollection;
     //    use Webklex\PHPIMAP\Client;use Webklex\PHPIMAP\Support\MessageCollection;
     //
@@ -50,7 +51,7 @@
                                         Processed emails
                                     </h5>
                                     <span class="font-semibold text-xl text-gray-800">
-                          2,356
+                          {{$processedEmail->TotalAmount}}
                         </span>
                                 </div>
                                 <div class="relative w-auto px-2 flex-initial">
@@ -66,7 +67,7 @@
                             </div>
                             <p class="text-sm text-gray-500 mt-4">
                       <span class="text-red-500 mr-2">
-                        <i class="fas fa-arrow-down"></i> 340
+                        <i class="fas fa-arrow-down"></i> {{$processedEmail->WeeklyAmount}}
                       </span>
                                 <span class="whitespace-no-wrap">
                         Since last week
@@ -169,7 +170,7 @@
                                 </th>
                                 <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
                                     style="text-align: end">
-                                    <input class="align-middle" type="checkbox">
+                                    <input class="align-middle all_checked" id="selectAll" type="checkbox" oncllick="">
                                 </th>
                                 <th class="px-1 py-3 border-b border-gray-200 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
                                     style="text-align: start">
@@ -215,7 +216,7 @@
                                     </td>
                                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 font-medium"
                                         style="text-align: end">
-                                        <input class="align-middle" type="checkbox">
+                                        <input class="align-middle checkbox" type="checkbox">
                                     </td>
                                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 font-medium">
                                     </td>
@@ -253,7 +254,7 @@
                                 </th>
                                 <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
                                     style="text-align: end">
-                                    <input class="align-middle" type="checkbox" disabled>
+                                    <input class="align-middle cursor-not-allowed" type="checkbox" disabled>
                                 </th>
                                 <th class="px-1 py-3 border-b border-gray-200 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
                                     style="text-align: start">
@@ -297,7 +298,7 @@
                                     </td>
                                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 font-medium"
                                         style="text-align: end">
-                                        <input class="align-middle" type="checkbox" disabled>
+                                        <input class="align-middle cursor-not-allowed" type="checkbox" disabled>
                                     </td>
                                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 font-medium">
                                     </td>
