@@ -174,8 +174,7 @@
                                 </th>
                                 <th class="px-1 py-3 w-1/12 border-b border-gray-200 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
                                     style="text-align: start">
-                                    <button
-                                        class="{{($newMessages->count() > 0) ? 'px-2 py-1 text-white text-sm font-medium rounded hover:bg-indigo-600 bg-indigo-500' : 'cursor-not-allowed bg-gray-500 px-2 py-1 text-white text-sm font-medium rounded'}}">
+                                    <button  onclick="{{\Illuminate\Support\Facades\Artisan::call('process:emails')}}" class="{{($newMessages->count() > 0) ? 'px-2 py-1 text-white text-sm font-medium rounded hover:bg-indigo-600 bg-indigo-500' : 'cursor-not-allowed bg-gray-500 px-2 py-1 text-white text-sm font-medium rounded'}}">
                                         Process
                                     </button>
                                 </th>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Email_Stats;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use mysql_xdevapi\Exception;
 
@@ -20,6 +21,18 @@ class DashboardController extends Controller
 
     }
 
+    /**
+     * @return int
+     */
+    public function processEmails(): int
+    {
+
+        return Artisan::call('fetch:emails');
+    }
+
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function index()
     {
         // init
