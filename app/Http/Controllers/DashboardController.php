@@ -22,11 +22,10 @@ class DashboardController extends Controller
     }
 
     /**
-     * @return int
+     * @return int, which is the status of the fetch:emails command.
      */
     public function processEmails(): int
     {
-
         return Artisan::call('fetch:emails');
     }
 

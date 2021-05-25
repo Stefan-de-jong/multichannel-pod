@@ -170,7 +170,7 @@
                                 </th>
                                 <th class="px-6 py-3 w-1/12 border-b border-gray-200 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
                                     style="text-align: end">
-                                    <input class="align-middle" id="selectAll" type="checkbox" onclick="" {{($newMessages->count() > 0) ? '' :'disabled=disabled class="cursor-not-allowed"'}}>
+                                    <input class="{{($newMessages->count() > 0)?'':'cursor-not-allowed'}} : align-middle" id="selectAll" type="checkbox" onclick="" {{($newMessages->count() > 0) ? '' :'disabled=disabled'}}>
                                 </th>
                                 <th class="px-1 py-3 w-1/12 border-b border-gray-200 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
                                     style="text-align: start">
