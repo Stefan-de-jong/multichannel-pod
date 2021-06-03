@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EmailController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\UsersDashboardController;
 use Illuminate\Support\Facades\Auth;
@@ -19,13 +20,21 @@ use Illuminate\Support\Facades\Route;
 //Enabled verification by passing in ['verify' => true] as a param
 Auth::routes(['verify' => true]);
 
+
+Route::group(['middleware' => ['admin']], function () {
+    Route::get('/users', [UsersDashboardController::class, 'index']);
+    Route::get('/users/{id}/edit', [UsersDashboardController::class, 'edit']);
+    Route::match(['put', 'patch'], '/users/{id}/update', [UsersDashboardController::class, 'update']);
+});
+
 Route::get('/', [PagesController::class, 'index']);
+Route::get('/home', [PagesController::class, 'home']);
 
-Route::get('/users', [UsersDashboardController::class, 'index']);
-Route::get('/users/{id}/edit', [UsersDashboardController::class, 'edit']);
-Route::match(['put', 'patch'], '/users/{id}/update', [UsersDashboardController::class, 'update']);
+Route::get('/dashboard', function() {
+    return view('dashboard');
+});
 
-Route::get('email', [\App\Http\Controllers\EmailController::class, 'index']);
+Route::get('email', [EmailController::class, 'index']);
 
 
 

@@ -22,7 +22,7 @@ class UsersDashboardController extends Controller
      */
     public function index()
     {
-        return view('users.index', [
+        return view('admin.users.index', [
             'users' => User::paginate(10)
         ]);
     }
@@ -35,7 +35,7 @@ class UsersDashboardController extends Controller
      */
     public function edit($id)
     {
-        return view('users.edit')->with('user', User::where('id', $id)->first());
+        return view('admin.users.edit')->with('user', User::where('id', $id)->first());
     }
 
     /**
@@ -53,7 +53,7 @@ class UsersDashboardController extends Controller
             'title'=> 'required|string',
             'role' => 'required|same:role'
         ]);
-            
+
         User::where('id', $id)
             ->update([
                 'name' => $request->input('name'),
