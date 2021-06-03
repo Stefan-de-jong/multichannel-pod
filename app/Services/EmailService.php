@@ -31,7 +31,7 @@ class EmailService
 
         // Getting the inbox folder
         try {
-            $folder = $client->getFolder("INBOX");
+            $folder = $client->getFolderByName("INBOX");
         } catch (ConnectionFailedException $e) {
             Log::error($e->getMessage());
             return 1;
@@ -39,6 +39,7 @@ class EmailService
             Log::error($e->getMessage());
             return 1;
         }
+
 
         // Collect all message in the folder and fire event if there are any
         try {
@@ -50,7 +51,6 @@ class EmailService
             Log::error($e->getMessage());
             return 1;
         }
-
         return 0;
     }
 }

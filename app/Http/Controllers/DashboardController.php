@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Email;
+use App\Services\EmailService;
+use Webklex\PHPIMAP\Exceptions\RuntimeException;
 use Illuminate\Http\Request;
 use Webklex\PHPIMAP\ClientManager;
 
@@ -29,5 +31,17 @@ class DashboardController extends Controller
         $processedMessages = $processed->messages()->all()->get();
 
         return view('dashboard', compact('inboxMessages', 'processedMessages'));
+    }
+
+
+    /**
+     * @throws RuntimeException
+     */
+    public function collectEmail()
+    {
+        if(EmailService::GetEmails() == 0){
+            return redirect('dashboard');
+        }
+        return back(500);
     }
 }

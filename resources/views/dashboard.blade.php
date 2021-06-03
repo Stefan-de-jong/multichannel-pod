@@ -111,7 +111,18 @@
 
 
     <div class="mt-12">
-        <h2 class="text-2xl font-medium">Inbox</h2>
+        <div class="flex">
+            <h2 class="text-2xl font-medium mr-auto">Inbox</h2>
+            <form role="form" onsubmit="return confirm('Collect email manually?');"
+{{--                  action="{!! action('DashboardController@collect', ['id' => $campaign->id]) !!}"--}}
+                  action="{{ action([\App\Http\Controllers\DashboardController::class, 'collectEmail']) }}"
+                  method="POST">
+            {{ csrf_field() }}
+                <button type="submit" class="bg-blue-500 px-4 py-2 text-blue-50 rounded-md">Download attachments</button>
+
+            </form>
+        </div>
+
         <div class="mt-4">
             <div class="flex flex-col">
                 <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6">
@@ -126,19 +137,7 @@
                                 </th>
                                 <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
                                     style="text-align: start">
-                                    Amount of attachments
-                                </th>
-                                <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
-                                    style="text-align: start">
-                                    processed
-                                </th>
-                                <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
-                                    style="text-align: end">
-                                    <input class="align-middle" type="checkbox">
-                                </th>
-                                <th class="px-1 py-3 border-b border-gray-200 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
-                                    style="text-align: start">
-                                    <button class="px-2 py-1 bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-medium rounded">Process</button>
+                                    Number of attachments
                                 </th>
                             </tr>
                             </thead>
@@ -169,18 +168,6 @@
                                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                         {{$newMessage->getAttachments()->count()}}
                                     </td>
-                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                  <span
-                                      class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
-                                    No
-                                  </span>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 font-medium"
-                                        style="text-align: end">
-                                        <input class="align-middle" type="checkbox">
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 font-medium">
-                                    </td>
                                 </tr>
                             @endforeach
                             </tbody>
@@ -207,7 +194,7 @@
                                 </th>
                                 <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
                                     style="text-align: start">
-                                    Amount of attachments
+                                    Number of attachments
                                 </th>
                                 <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
                                     style="text-align: start">

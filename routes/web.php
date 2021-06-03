@@ -23,12 +23,13 @@ Auth::routes(['verify' => true]);
 Route::get('/', [PagesController::class, 'home']);
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/dashboard', [DashboardController::class, 'index']);
+    Route::get('dashboard', [DashboardController::class, 'index']);
+    Route::post('dashboard/collect-email', [DashboardController::class, 'collectEmail' ]);
 });
 
 Route::group(['middleware' => ['admin']], function () {
-    Route::get('/users', [UsersDashboardController::class, 'index']);
-    Route::get('/users/{id}/edit', [UsersDashboardController::class, 'edit']);
+    Route::get('users', [UsersDashboardController::class, 'index']);
+    Route::get('users/{id}/edit', [UsersDashboardController::class, 'edit']);
     Route::match(['put', 'patch'], '/users/{id}/update', [UsersDashboardController::class, 'update']);
 });
 

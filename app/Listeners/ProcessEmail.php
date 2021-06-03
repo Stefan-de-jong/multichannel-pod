@@ -4,6 +4,7 @@ namespace App\Listeners;
 
 use App\Events\NewEmailToProcessEvent;
 use App\Models\Email;
+use Illuminate\Support\Facades\Storage;
 use \Webklex\IMAP\Events\MessageNewEvent;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
@@ -29,17 +30,16 @@ class ProcessEmail
      */
     public function handle(NewEmailToProcessEvent $events)
     {
+
         foreach ($events->message as $email){
-            Email::create(['from' => $email->from, 'subject' => $email->subject, 'body' => $email->getTextBody(), 'message_id' => $email->message_id, 'processed' => false]);
+            Email::create(['from' => $email->from, 'subject' => $email->subject, 'n_attachments' => $email->getAttachments()->count(), 'message_id' => $email->message_id, 'processed' => false]);
             if($email->hasAttachments()){
                 $attachments = $email->getAttachments();
                 foreach ($attachments as $attachment){
-                    $attachment->save($path = "./storage/app/images/", $filename = pathinfo($attachment->name, PATHINFO_FILENAME) . '_' . time() . '.' . $attachment->getExtension());
+                    $attachment->save($path = Storage::path('\images\\'), $filename = pathinfo($attachment->name, PATHINFO_FILENAME) . '_' . time() . '.' . 'pdf');
                 }
             }
             $email->move($folder_path = "TCR");
-
-            
         }
     }
 }

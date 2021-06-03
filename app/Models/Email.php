@@ -17,7 +17,7 @@ class Email extends Model
     protected $fillable = [
         'from',
         'subject',
-        'body',
+        'n_attachments',
         'message_id',
         'processed',
     ];
