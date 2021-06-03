@@ -6,7 +6,7 @@ use App\Models\Email;
 use Illuminate\Http\Request;
 use Webklex\PHPIMAP\ClientManager;
 
-class EmailController extends Controller
+class DashboardController extends Controller
 {
     private $cm;
 
@@ -22,12 +22,12 @@ class EmailController extends Controller
     public function index()
     {
         $this->cm->connect();
-        $folders = $this->cm->getFolders();
+        $inbox = $this->cm->getFolderByName('INBOX');
+        $processed = $this->cm->getFolderByName('TCR');
 
-        foreach ($folders as $folder){
-            $messages = $folder->messages()->all()->get();
-        }
+        $inboxMessages = $inbox->messages()->all()->get();
+        $processedMessages = $processed->messages()->all()->get();
 
-        return view('email.index', compact('messages'));
+        return view('dashboard', compact('inboxMessages', 'processedMessages'));
     }
 }

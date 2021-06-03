@@ -18,7 +18,12 @@
 
             <div class="w-full p-6">
                 <p class="text-gray-700">
+                    @auth()
                     You are logged in!
+                    @endauth
+                    @guest()
+                        Please log in to continue
+                    @endguest
                 </p>
             </div>
         </section>

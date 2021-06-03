@@ -32,7 +32,7 @@
 <body class="bg-gray-100 h-screen antialiased leading-none font-sans">
     @include('includes.header')
 
-    <div>
+    <div class="container mx-auto">
         @yield('content')
     </div>
 

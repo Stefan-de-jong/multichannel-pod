@@ -1,44 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-
-<!--    --><?php
-//
-//    use Webklex\PHPIMAP\ClientManager;use Webklex\PHPIMAP\Support\FolderCollection;
-//    use Webklex\PHPIMAP\Client;use Webklex\PHPIMAP\Support\MessageCollection;
-//
-//    $cm = new ClientManager('../config/imap.php');
-//
-//    /** @var Client $client */
-//    $client = $cm->account('hotmail');
-//    xdebug_break();
-//    //Connect to the IMAP Server, if not connected
-//    $status = $client->isConnected();
-//    if (!$status) {
-//        $status = $client->connect();
-//    }
-//
-//    //Get mails from RTC folder and RTC_DONE folder.
-//    /** @var FolderCollection $folders */
-//    $newFolder = $client->getFolderByName('RTC');
-//    $processedFolder = $client->getFolderByName('RTC_DONE');
-//
-//    /** @var MessageCollection $newMessages */
-//    $newMessages = [];
-//    $processedMessages = [];
-//
-//
-//    $newMessages = $newFolder->messages()->all()->get();
-//    $processedMessages = $processedFolder->messages()->all()->get();
-//
-//    EmailService::getEmails();
-//
-//    //            $arr = App\Http\Controllers\emailController::fetchEmail();
-//    //            $newMessages[] = $arr[0];
-//    //            $processedMessages[] = $arr[1];
-//
-//    ?>
-
     <div class="mx-auto w-full">
         <div>
             <!-- Card stats -->
@@ -147,8 +109,9 @@
         </div>
     </div>
 
+
     <div class="mt-12">
-        <h2 class="text-2xl font-medium">New Emails</h2>
+        <h2 class="text-2xl font-medium">Inbox</h2>
         <div class="mt-4">
             <div class="flex flex-col">
                 <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6">
@@ -180,7 +143,7 @@
                             </tr>
                             </thead>
                             <tbody class="bg-white">
-{{--                            @foreach($newMessages as $newMessage)--}}
+                            @foreach($inboxMessages as $newMessage)
                                 <tr>
                                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                         <div class="flex items-center">
@@ -194,17 +157,17 @@
                                                 </svg>
                                             </div>
                                             <div class="mx-2">
-{{--                                                <div--}}
-{{--                                                    class="text-sm leading-5 font-medium text-gray-900"> {{$newMessage->getSubject()}}--}}
-{{--                                                </div>--}}
-{{--                                                <div--}}
-{{--                                                    class="text-sm leading-5 text-gray-500">{{$newMessage->getFrom()}}--}}
-{{--                                                </div>--}}
+                                                <div
+                                                    class="text-sm leading-5 font-medium text-gray-900"> {{$newMessage->getSubject()}}
+                                                </div>
+                                                <div
+                                                    class="text-sm leading-5 text-gray-500">{{$newMessage->getFrom()}}
+                                                </div>
                                             </div>
                                         </div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-{{--                                        {{$newMessage->getAttachments()->count()}}--}}
+                                        {{$newMessage->getAttachments()->count()}}
                                     </td>
                                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                   <span
@@ -219,7 +182,7 @@
                                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 font-medium">
                                     </td>
                                 </tr>
-{{--                            @endforeach--}}
+                            @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -229,7 +192,7 @@
     </div>
 
     <div class="mt-12">
-        <h2 class="text-2xl font-medium">Processed Emails</h2>
+        <h2 class="text-2xl font-medium">TCR Folder</h2>
         <div class="mt-4">
             <div class="flex flex-col">
                 <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6">
@@ -250,18 +213,10 @@
                                     style="text-align: start">
                                     processed
                                 </th>
-                                <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
-                                    style="text-align: end">
-                                    <input class="align-middle" type="checkbox" disabled>
-                                </th>
-                                <th class="px-1 py-3 border-b border-gray-200 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
-                                    style="text-align: start">
-                                    <button class="px-2 py-1 bg-gray-500 text-white text-sm font-medium rounded cursor-not-allowed">Process</button>
-                                </th>
                             </tr>
                             </thead>
                             <tbody class="bg-white">
-{{--                            @foreach($processedMessages as $processedMessage)--}}
+                            @foreach($processedMessages as $processedMessage)
                                 <tr>
                                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                         <div class="flex items-center">
@@ -275,17 +230,17 @@
                                                 </svg>
                                             </div>
                                             <div class="mx-2">
-{{--                                                <div--}}
-{{--                                                    class="text-sm leading-5 font-medium text-gray-900">{{$processedMessage->getSubject()}}--}}
-{{--                                                </div>--}}
-{{--                                                <div--}}
-{{--                                                    class="text-sm leading-5 text-gray-500">{{$processedMessage->getFrom()}}--}}
-{{--                                                </div>--}}
+                                                <div
+                                                    class="text-sm leading-5 font-medium text-gray-900">{{$processedMessage->getSubject()}}
+                                                </div>
+                                                <div
+                                                    class="text-sm leading-5 text-gray-500">{{$processedMessage->getFrom()}}
+                                                </div>
                                             </div>
                                         </div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-{{--                                        {{$processedMessage->getAttachments()->count()}}--}}
+                                        {{$processedMessage->getAttachments()->count()}}
                                     </td>
                                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                   <span
@@ -293,14 +248,8 @@
                                     Yes
                                   </span>
                                     </td>
-                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 font-medium"
-                                        style="text-align: end">
-                                        <input class="align-middle" type="checkbox" disabled>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 font-medium">
-                                    </td>
                                 </tr>
-{{--                            @endforeach--}}
+                            @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -308,6 +257,4 @@
             </div>
         </div>
     </div>
-
-<!--    --><?php //$client->disconnect(); ?>
 @endsection

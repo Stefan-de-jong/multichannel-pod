@@ -2,7 +2,7 @@
         x-data="{ mobileMenuOpen : false }"
         class="flex flex-wrap flex-row justify-between md:items-center shadow-xl md:space-x-4 w-4/5bg-white py-6 px-6 relative">
 
-        <a href="/home" class="block">
+        <a href="/" class="block">
           <img
             class="h-6 md:h-8"
             src="https://tcrotterdam.nl/wp-content/uploads/2015/09/logo-kleur.png"
@@ -32,30 +32,27 @@
             @click.away="mobileMenuOpen = false"
                 >
             <a
-                href="/home"
+                href="/"
                 class="block py-1 text-orange-500 hover:underline">
 Home
             </a>
 
-            <a
-                href="/dashboard"
-                class="block py-1 text-gray-600 hover:underline">
-Dashboard
-</a>
 
-@if(auth()->user()->role == 'admin')
-    <a
-        href="/users"
-        class="block py-1 text-gray-600 hover:underline">
-        Users
-    </a>
-@endif
+@auth()
 
-{{--<a--}}
-{{--    href="#"--}}
-{{--    class="block py-1 text-gray-600 hover:underline">--}}
-{{--    Blog--}}
-{{--</a>--}}
+                <a
+                    href="/dashboard"
+                    class="block py-1 text-gray-600 hover:underline">
+                    Dashboard
+                </a>
+    @if(auth()->user()->role == 'admin')
+        <a
+            href="/users"
+            class="block py-1 text-gray-600 hover:underline">
+            Users
+        </a>
+    @endif
+@endauth
 
 <a
     href="#"

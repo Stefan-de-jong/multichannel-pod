@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\EmailController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\UsersDashboardController;
 use Illuminate\Support\Facades\Auth;
@@ -20,6 +20,11 @@ use Illuminate\Support\Facades\Route;
 //Enabled verification by passing in ['verify' => true] as a param
 Auth::routes(['verify' => true]);
 
+Route::get('/', [PagesController::class, 'home']);
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/dashboard', [DashboardController::class, 'index']);
+});
 
 Route::group(['middleware' => ['admin']], function () {
     Route::get('/users', [UsersDashboardController::class, 'index']);
@@ -27,14 +32,11 @@ Route::group(['middleware' => ['admin']], function () {
     Route::match(['put', 'patch'], '/users/{id}/update', [UsersDashboardController::class, 'update']);
 });
 
-Route::get('/', [PagesController::class, 'index']);
-Route::get('/home', [PagesController::class, 'home']);
 
-Route::get('/dashboard', function() {
-    return view('dashboard');
-});
 
-Route::get('email', [EmailController::class, 'index']);
+
+
+
 
 
 
