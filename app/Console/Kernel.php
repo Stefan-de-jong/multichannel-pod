@@ -14,7 +14,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         \App\Console\Commands\FetchEmails::class,
-        \App\Console\Commands\ProcessEmails::class,
+        \App\Console\Commands\ProcessRawImages::class,
     ];
 
     /**

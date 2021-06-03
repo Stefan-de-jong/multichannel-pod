@@ -36,7 +36,7 @@ class ProcessEmail
             if($email->hasAttachments()){
                 $attachments = $email->getAttachments();
                 foreach ($attachments as $attachment){
-                    $attachment->save($path = Storage::path('\images\\'), $filename = pathinfo($attachment->name, PATHINFO_FILENAME) . '_' . time() . '.' . 'pdf');
+                    $attachment->save($path = Storage::path('images\step1\\'), $filename = pathinfo($attachment->name, PATHINFO_FILENAME) . '_' . time() . '.' . $attachment->getExtension());
                 }
             }
             $email->move($folder_path = "TCR");
