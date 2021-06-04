@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Email;
+use App\Services\ImageService;
 use Illuminate\Console\Command;
 
 class ProcessRawImages extends Command
@@ -37,12 +38,6 @@ class ProcessRawImages extends Command
      */
     public function handle()
     {
-        shell_exec('D:\dev\multichannel-app\app\Scripts\resize.py');
-//        $emails = Email::where('processed', '=', false)->get();
-//
-//        foreach ($emails as $email){
-//            $email->processed = true;
-//            $email->save();
-//        }
+        ImageService::crop();
     }
 }

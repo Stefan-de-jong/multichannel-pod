@@ -24,7 +24,8 @@ Route::get('/', [PagesController::class, 'home']);
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('dashboard', [DashboardController::class, 'index']);
-    Route::post('dashboard/collect-email', [DashboardController::class, 'collectEmail' ]);
+    Route::post('dashboard/download-attachments', [DashboardController::class, 'downloadAttachments']);
+    Route::post('dashboard/crop-images', [DashboardController::class, 'cropImages']);
 });
 
 Route::group(['middleware' => ['admin']], function () {

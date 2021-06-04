@@ -6,14 +6,14 @@ use App\Services\EmailService;
 use Illuminate\Console\Command;
 use Webklex\PHPIMAP\Exceptions\RuntimeException;
 
-class FetchEmails extends Command
+class DownloadAttachments extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'fetch:emails';
+    protected $signature = 'download:attachments';
 
     /**
      * The console command description.
@@ -40,7 +40,7 @@ class FetchEmails extends Command
      */
     public function handle() : int
     {
-        if(EmailService::GetEmails() == 0){
+        if(EmailService::DownloadAttachments() == 0){
             $this->info('Command executed successfully');
             return 0;
         }

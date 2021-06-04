@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        \App\Console\Commands\FetchEmails::class,
+        \App\Console\Commands\DownloadAttachments::class,
         \App\Console\Commands\ProcessRawImages::class,
     ];
 
@@ -26,8 +26,8 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // Commands to run, if server is configured with a cronjob to run 'php artisan schedule:run' each minute
-        $schedule->command('fetch:emails')->everyFiveMinutes();
-        $schedule->command('process:emails')->everyFifteenMinutes();
+        $schedule->command('download:attachments')->everyFiveMinutes();
+        $schedule->command('process:raw-images')->everyFifteenMinutes();
     }
 
     /**

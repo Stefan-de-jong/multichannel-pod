@@ -18,7 +18,7 @@ class EmailService
      * @return int
      * @throws RuntimeException
      */
-    public static function GetEmails() : int
+    public static function DownloadAttachments() : int
     {
         // Connecting to the email client
         $client = Client::account("default");
