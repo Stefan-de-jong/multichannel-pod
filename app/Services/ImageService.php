@@ -13,4 +13,12 @@ class ImageService
         shell_exec('D:\dev\multichannel-app\app\Scripts\resize.py');
         return 0;
     }
+
+
+    public static function process() : int
+    {
+        // Todo: add try catch block to catch any python exceptions
+        //shell_exec('D:\dev\multichannel-app\app\Scripts\resize.py');
+        return 0;
+    }
 }

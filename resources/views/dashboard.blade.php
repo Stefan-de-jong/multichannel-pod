@@ -240,4 +240,69 @@
             </div>
         </div>
     </div>
+
+    <div class="mt-12">
+        <div class="flex">
+            <h2 class="text-2xl font-medium mr-auto">Cropped images to process</h2>
+            <form role="form" onsubmit="return confirm('Process images?');"
+                  action="{{ action([\App\Http\Controllers\DashboardController::class, 'processImages']) }}"
+                  method="POST">
+                {{ csrf_field() }}
+                <button type="submit" class="bg-blue-500 px-4 py-2 text-blue-50 rounded-md">Process images</button>
+            </form>
+        </div>
+        <div class="mt-4">
+            <div class="flex flex-col">
+                <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6">
+                    <div
+                        class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
+                        <table class="min-w-full">
+                            <thead class="bg-gray-100">
+                            <tr>
+                                <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-right text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
+                                    style="text-align: start">
+                                    File name
+                                </th>
+                                <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
+                                    style="text-align: start">
+                                    File size
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody class="bg-white">
+                            @foreach($croppedFiles as $file)
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                        <div class="flex items-center">
+                                            <div class="flex-shrink-0 h-10 w-10">
+                                                <svg class="h-10 w-10 rounded-full text-gray-500" fill="none"
+                                                     stroke-linecap="round"
+                                                     stroke-linejoin="round"
+                                                     stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path
+                                                        d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path>
+                                                </svg>
+                                            </div>
+                                            <div class="mx-2">
+                                                <div
+                                                    class="text-sm leading-5 font-medium text-gray-900">{{ $file['name'] }}
+                                                </div>
+                                                <div
+                                                    class="text-sm leading-5 text-gray-500">{{$file['extension']}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                        {{$file['size']}}
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
