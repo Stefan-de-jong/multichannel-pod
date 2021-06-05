@@ -13,6 +13,7 @@ import shutil
 # constants and variables
 IMAGE_SIZE = 224
 image_dir = "D:\\dev\\multichannel-app\\storage\\app\\images"
+output_dir = "D:\\dev\\multichannel-app\\storage\\app\\public"
 input_folder = "crops"
 output_folder = "output"
 originals_folder = "originals\\step2"
@@ -49,6 +50,7 @@ for i, filename in enumerate(os.listdir(image_dir + '/' + input_folder)):
 X=np.array(X)
 X = X / 255
 
+print('hello')
 
 # model version6 scored yielded some pretty good results, so we are loading this in
 model = keras.models.load_model(my_model)

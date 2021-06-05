@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Email extends Model
+class Attachment extends Model
 {
     use HasFactory;
 
@@ -15,11 +15,10 @@ class Email extends Model
      * @var array
      */
     protected $fillable = [
-        'from',
-        'subject',
-        'n_attachments',
-        'message_id',
-        'processed',
+        'email_id',
+        'file_name',
+        'step',
+        'processed'
     ];
 
     /**
@@ -43,10 +42,10 @@ class Email extends Model
 
 
     /**
-     * Get the attachments for the email.
+     * Get the email for attachment.
      */
-    public function attachments()
+    public function email()
     {
-        return $this->hasMany(Attachment::class);
+        return $this->belongsTo(Email::class);
     }
 }

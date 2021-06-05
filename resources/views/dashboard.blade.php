@@ -14,7 +14,7 @@
                                         Processed emails
                                     </h5>
                                     <span class="font-semibold text-xl text-gray-800">
-                          2,356
+                          {{ $emails }}
                         </span>
                                 </div>
                                 <div class="relative w-auto px-2 flex-initial">
@@ -30,10 +30,10 @@
                             </div>
                             <p class="text-sm text-gray-500 mt-4">
                       <span class="text-red-500 mr-2">
-                        <i class="fas fa-arrow-down"></i> 340
+
                       </span>
                                 <span class="whitespace-no-wrap">
-                        Since last week
+
                       </span>
                             </p>
                         </div>
@@ -45,15 +45,15 @@
                             <div class="flex flex-wrap">
                                 <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
                                     <h5 class="text-gray-500 uppercase font-bold text-xs">
-                                        Processed email failed
+                                        Processed attachments
                                     </h5>
                                     <span class="font-semibold text-xl text-gray-800">
-                          13
+                          {{ $attachments->count() }}
                         </span>
                                 </div>
                                 <div class="relative w-auto px-2 flex-initial">
                                     <div
-                                        class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-red-500">
+                                        class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-green-500">
                                         <svg class="w-5 h-5" fill="none" stroke-linecap="round" stroke-linejoin="round"
                                              stroke-width="2" stroke="currentColor" viewBox="0 0 24 24">
                                             <path
@@ -63,12 +63,12 @@
                                 </div>
                             </div>
                             <p class="text-sm text-gray-500 mt-4">
-                      <span class="text-orange-500 mr-2">
-                        <i class="fas fa-arrow-down"></i> 2
-                      </span>
-                                <span class="whitespace-no-wrap">
-                        Since last week
-                      </span>
+                        <span class="text-orange-500 mr-2">
+
+                        </span>
+                        <span class="whitespace-no-wrap">
+
+                        </span>
                             </p>
                         </div>
                     </div>
@@ -79,10 +79,10 @@
                             <div class="flex flex-wrap">
                                 <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
                                     <h5 class="text-gray-500 uppercase font-bold text-xs">
-                                        Performance [OCR]
+                                        Files ready for [OCR]
                                     </h5>
                                     <span class="font-semibold text-xl text-gray-800">
-                          89,55%
+                          {{ count($processedFiles) }}
                         </span>
                                 </div>
                                 <div class="relative w-auto px-2 flex-initial">
@@ -99,7 +99,11 @@
                             </div>
                             <p class="text-sm text-gray-500 mt-4">
                       <span class="text-green-500 mr-2">
-                        <i class="fas fa-arrow-up"></i> +3% since last week
+<a
+    href="/results"
+    >
+                    Check results
+                </a>
                       </span>
                             </p>
                         </div>
@@ -244,7 +248,8 @@
     <div class="mt-12">
         <div class="flex">
             <h2 class="text-2xl font-medium mr-auto">Cropped images to process</h2>
-            <form role="form" onsubmit="return confirm('Process images?');"
+            <form role="form" onsubmit="return confirm('Process images? \n' +
+             'Depending on the amount of files, this can take a while!');"
                   action="{{ action([\App\Http\Controllers\DashboardController::class, 'processImages']) }}"
                   method="POST">
                 {{ csrf_field() }}
