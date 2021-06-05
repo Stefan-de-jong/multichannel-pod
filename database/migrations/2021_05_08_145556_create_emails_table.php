@@ -17,7 +17,7 @@ class CreateEmailsTable extends Migration
             $table->id();
             $table->string('from');
             $table->string('subject');
-            $table->text('body');
+            $table->integer('n_attachments');
             $table->boolean('processed');
             $table->timestamps();
         });

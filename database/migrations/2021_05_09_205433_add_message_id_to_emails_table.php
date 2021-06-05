@@ -14,7 +14,7 @@ class AddMessageIdToEmailsTable extends Migration
     public function up()
     {
         Schema::table('emails', function (Blueprint $table) {
-            $table->string('message_id')->after('body');
+            $table->string('message_id')->after('n_attachments');
         });
     }
 

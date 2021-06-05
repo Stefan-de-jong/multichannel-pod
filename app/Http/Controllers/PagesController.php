@@ -25,4 +25,15 @@ class PagesController extends Controller
     {
         return view('index');
     }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function home()
+    {
+        return view('home');
+    }
+
 }

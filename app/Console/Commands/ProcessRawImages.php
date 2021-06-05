@@ -3,23 +3,24 @@
 namespace App\Console\Commands;
 
 use App\Models\Email;
+use App\Services\ImageService;
 use Illuminate\Console\Command;
 
-class ProcessEmails extends Command
+class ProcessRawImages extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'process:emails';
+    protected $signature = 'process:raw-images';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Collect all emails from DB with processed = false, and process them';
+    protected $description = 'Resize all raw/downloaded images, resize them and crop upper right corner out' ;
 
     /**
      * Create a new command instance.
@@ -37,11 +38,6 @@ class ProcessEmails extends Command
      */
     public function handle()
     {
-        $emails = Email::where('processed', '=', false)->get();
-
-        foreach ($emails as $email){
-            $email->processed = true;
-            $email->save();
-        }
+        ImageService::crop();
     }
 }
