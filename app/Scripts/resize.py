@@ -8,12 +8,12 @@ import cv2
 
 # constants and variables
 image_dir = "D:\\dev\\multichannel-app\\storage\\app\\images"
-input_folder = "step1"
+input_folder = "originals\\step1"
+output_folder = "crops"
+move_folder = "originals\\step2"
 scale = 50 #percent
 crop_size = 500 #pixels
-write_folder = "crops"
-write_prefix = "cropped_"
-output_folder = "step2"
+
 
 # go over all files in input_folder
 for dirname in os.listdir(image_dir):
@@ -37,10 +37,10 @@ for dirname in os.listdir(image_dir):
         new_w = crop_size
         crop = resized_img[y:y+new_h, x:x+new_w]
 
-        # save cropped as new file for further processing
-        cv2.imwrite(image_dir + '/' + write_folder + '/' + write_prefix + filename, crop)
-        # move raw file to output_folder
-        shutil.move(image_dir + '/' + input_folder + '/' + filename, image_dir + '/' + output_folder + '/' + filename)
+        # save cropped as new file for further processing in the output_folder
+        cv2.imwrite(image_dir + '/' + output_folder + '/'  + filename, crop)
+        # move original file to move_folder
+        shutil.move(image_dir + '/' + input_folder + '/' + filename, image_dir + '/' + move_folder + '/' + filename)
     break
 exit()
 

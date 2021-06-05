@@ -13,4 +13,11 @@ class ImageService
         shell_exec('D:\dev\multichannel-app\app\Scripts\resize.py');
         return 0;
     }
+
+
+    public static function process() : int
+    {
+        shell_exec('D:\dev\multichannel-app\app\Scripts\detect.py');
+        return 0;
+    }
 }

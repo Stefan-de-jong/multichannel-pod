@@ -32,18 +32,19 @@ class DashboardController extends Controller
         $inboxMessages = $inbox->messages()->all()->get();
         $processedMessages = $processed->messages()->all()->get();
 
-
-//        $files = Storage::disk('local')->files('images/step1');
-//        dd($files);
-
-        $allFiles = Storage::disk('local')->files('images/step1');
+        $allFiles = Storage::disk('local')->files('images/originals/step1');
         $files = array();
-
         foreach ($allFiles as $file) {
             $files[] = $this->fileInfo(pathinfo(Storage::path('') . $file));
         }
 
-        return view('dashboard', compact('inboxMessages', 'processedMessages', 'files'));
+        $allCroppedFiles = Storage::disk('local')->files('images/crops');
+        $croppedFiles = array();
+        foreach ($allCroppedFiles as $file) {
+            $croppedFiles[] = $this->fileInfo(pathinfo(Storage::path('') . $file));
+        }
+
+        return view('dashboard', compact('inboxMessages', 'processedMessages', 'files', 'croppedFiles'));
     }
 
 
@@ -63,6 +64,13 @@ class DashboardController extends Controller
         ImageService::crop();
         return redirect('dashboard');
     }
+
+    public function processImages()
+    {
+        ImageService::process();
+        return redirect('dashboard');
+    }
+
 
     private function fileInfo($filePath)
     {
