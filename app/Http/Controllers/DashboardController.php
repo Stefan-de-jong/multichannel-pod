@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Attachment;
 use App\Models\Email;
 use App\Services\EmailService;
 use App\Services\ImageService;
@@ -27,24 +28,18 @@ class DashboardController extends Controller
     {
         $this->cm->connect();
         $inbox = $this->cm->getFolderByName('INBOX');
-        $processed = $this->cm->getFolderByName('TCR');
-
         $inboxMessages = $inbox->messages()->all()->get();
-        $processedMessages = $processed->messages()->all()->get();
 
-        $allFiles = Storage::disk('local')->files('images/originals/step1');
-        $files = array();
-        foreach ($allFiles as $file) {
-            $files[] = $this->fileInfo(pathinfo(Storage::path('') . $file));
-        }
+        $emails = Email::get()->count();
+        $attachments = Attachment::get();
 
-        $allCroppedFiles = Storage::disk('local')->files('images/crops');
-        $croppedFiles = array();
-        foreach ($allCroppedFiles as $file) {
-            $croppedFiles[] = $this->fileInfo(pathinfo(Storage::path('') . $file));
-        }
+        $files = $this->getAllStepFiles(1);
+        $croppedFiles = $this->getAllStepFiles(2);
+        $processedFiles = $this->getAllStepFiles(3);
 
-        return view('dashboard', compact('inboxMessages', 'processedMessages', 'files', 'croppedFiles'));
+
+
+        return view('dashboard', compact('emails', 'attachments', 'inboxMessages', 'files', 'croppedFiles', 'processedFiles'));
     }
 
 
@@ -62,12 +57,16 @@ class DashboardController extends Controller
     public function cropImages()
     {
         ImageService::crop();
+        $this->updateStep(1);
+
         return redirect('dashboard');
     }
 
     public function processImages()
     {
         ImageService::process();
+        $this->updateStep(2);
+
         return redirect('dashboard');
     }
 
@@ -93,6 +92,30 @@ class DashboardController extends Controller
             return round(pow(1024, $base - floor($base)), $precision) . $suffixes[floor($base)];
         } else {
             return $size;
+        }
+    }
+
+    /**
+     * @return array
+     */
+    public function getAllStepFiles(int $step): array
+    {
+        $allFiles = Storage::disk('local')->files('images/originals/step' . $step);
+        $files = array();
+        foreach ($allFiles as $file) {
+            $files[] = $this->fileInfo(pathinfo(Storage::path('') . $file));
+        }
+        return $files;
+    }
+
+    public function updateStep(int $step): void
+    {
+        $files = $this->getAllStepFiles($step+1);
+        foreach ($files as $file) {
+            Attachment::where([
+                ['file_name', '=', $file['name'] . '.' . $file['extension']],
+                ['step', '=', $step]
+            ])->update(['step' => $step+1]);
         }
     }
 }

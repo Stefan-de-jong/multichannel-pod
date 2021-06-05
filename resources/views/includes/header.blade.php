@@ -34,7 +34,7 @@
             <a
                 href="/"
                 class="block py-1 text-orange-500 hover:underline">
-Home
+                Home
             </a>
 
 
@@ -44,6 +44,11 @@ Home
                     href="/dashboard"
                     class="block py-1 text-gray-600 hover:underline">
                     Dashboard
+                </a>
+                <a
+                    href="/results"
+                    class="block py-1 text-gray-600 hover:underline">
+                    Results
                 </a>
     @if(auth()->user()->role == 'admin')
         <a

@@ -27,6 +27,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('dashboard/download-attachments', [DashboardController::class, 'downloadAttachments']);
     Route::post('dashboard/crop-images', [DashboardController::class, 'cropImages']);
     Route::post('dashboard/process-images', [DashboardController::class, 'processImages']);
+    Route::get('results', [PagesController::class, 'results']);
 });
 
 Route::group(['middleware' => ['admin']], function () {
