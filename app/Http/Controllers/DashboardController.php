@@ -32,7 +32,7 @@ class DashboardController extends Controller
         $inboxMessages = $inbox->messages()->all()->get();
         $processedMessages = $processed->messages()->all()->get();
 
-        $allFiles = Storage::disk('local')->files('images/step1');
+        $allFiles = Storage::disk('local')->files('images/originals/step1');
         $files = array();
         foreach ($allFiles as $file) {
             $files[] = $this->fileInfo(pathinfo(Storage::path('') . $file));

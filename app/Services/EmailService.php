@@ -6,6 +6,7 @@ namespace App\Services;
 
 use App\Events\NewEmailToProcessEvent;
 use Illuminate\Support\Facades\Log;
+use Throwable;
 use Webklex\IMAP\Facades\Client;
 use Webklex\PHPIMAP\Exceptions\ConnectionFailedException;
 use Webklex\PHPIMAP\Exceptions\FolderFetchingException;
@@ -50,6 +51,9 @@ class EmailService
         } catch (ConnectionFailedException $e) {
             Log::error($e->getMessage());
             return 1;
+        }
+        catch (Throwable $t){
+
         }
         return 0;
     }
