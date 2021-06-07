@@ -17,7 +17,7 @@ class Email extends Model
     protected $fillable = [
         'from',
         'subject',
-        'body',
+        'n_attachments',
         'message_id',
         'processed',
     ];
@@ -40,4 +40,13 @@ class Email extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
+
+
+    /**
+     * Get the attachments for the email.
+     */
+    public function attachments()
+    {
+        return $this->hasMany(Attachment::class);
+    }
 }

@@ -6,6 +6,7 @@ namespace App\Services;
 
 use App\Events\NewEmailToProcessEvent;
 use Illuminate\Support\Facades\Log;
+use Throwable;
 use Webklex\IMAP\Facades\Client;
 use Webklex\PHPIMAP\Exceptions\ConnectionFailedException;
 use Webklex\PHPIMAP\Exceptions\FolderFetchingException;
@@ -18,7 +19,7 @@ class EmailService
      * @return int
      * @throws RuntimeException
      */
-    public static function GetEmails() : int
+    public static function DownloadAttachments() : int
     {
         // Connecting to the email client
         $client = Client::account("default");
@@ -31,7 +32,7 @@ class EmailService
 
         // Getting the inbox folder
         try {
-            $folder = $client->getFolder("INBOX");
+            $folder = $client->getFolderByName("INBOX");
         } catch (ConnectionFailedException $e) {
             Log::error($e->getMessage());
             return 1;
@@ -39,6 +40,7 @@ class EmailService
             Log::error($e->getMessage());
             return 1;
         }
+
 
         // Collect all message in the folder and fire event if there are any
         try {
@@ -50,7 +52,9 @@ class EmailService
             Log::error($e->getMessage());
             return 1;
         }
+        catch (Throwable $t){
 
+        }
         return 0;
     }
 }
