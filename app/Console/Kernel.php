@@ -15,6 +15,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         \App\Console\Commands\DownloadAttachments::class,
         \App\Console\Commands\ProcessRawImages::class,
+        \App\Console\Commands\ProcessCroppedImages::class,
     ];
 
     /**
@@ -26,8 +27,9 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // Commands to run, if server is configured with a cronjob to run 'php artisan schedule:run' each minute
-        $schedule->command('download:attachments')->everyFiveMinutes();
+        $schedule->command('download:attachments')->everyFifteenMinutes();
         $schedule->command('process:raw-images')->everyFifteenMinutes();
+        $schedule->command('process:cropped-images')->everyFifteenMinutes();
     }
 
     /**

@@ -50,7 +50,6 @@ for i, filename in enumerate(os.listdir(image_dir + '/' + input_folder)):
 X=np.array(X)
 X = X / 255
 
-print('hello')
 
 # model version6 scored yielded some pretty good results, so we are loading this in
 model = keras.models.load_model(my_model)
@@ -78,7 +77,7 @@ for i in range(0,len(X)) :
 
     # this crops out the detected TCR and save it as a new image to in with OCR
     cropped_tcr = X[i][start_y:end_y, start_x:end_x]
-    filename = image_dir + '/' + output_folder + '/' + filenames[i]
+    filename = output_dir + '/' + output_folder + '/' + filenames[i]
     cv2.imwrite(filename, cropped_tcr*255)
 
 #     cv2.imshow('TCR', cropped_tcr)
