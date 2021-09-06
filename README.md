@@ -1,4 +1,4 @@
-##Proof of concept: 
+#Proof-of-concept 
 "automate the process of storing images as a pdf, using a handwritten code in the image as filename"
 
 This application is a POC demonstrating the automatic retrieval of emails and processing any found attachments with a trained convolutional neural network.
